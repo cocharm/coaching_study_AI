@@ -1,0 +1,22 @@
+class ReadCSV():
+    def __init__(self, file_path) :
+        self.file_path = file_path
+        # merge_list에서 self.lines 없어서 오류 뜨는 것 방지
+        self.lines = []
+
+    def read_file(self):
+        f = open(self.file_path, 'r')
+        # EOF가 나오기 전까지 전부 받음
+        self.lines = f.readlines()
+        return self.lines
+
+    def merge_list(self):
+        # 한 줄이 너무 길어져서 여러 줄로 나눔
+        return sorted( \
+            [sum(list(map(int, line.strip().split(',')))) / 4 \
+            for line in self.lines])
+    
+file_path = "data-01-test-score.csv"
+read_csv = ReadCSV(file_path)
+read_csv.read_file()
+print(read_csv.merge_list())
